@@ -6,15 +6,18 @@
 // ---- [ includes ] ----------------------------------------------------------
 
 var express = require("express");
+var app = express();
 var bodyParser = require("body-parser");
 var jade = require("jade");
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
 var logger = require("./logger.js");
 var routes = require("./routes");
 var settings = require("./settings.js");
+var sockethandler = require("./sockethandler.js").handler;
 
 // ---- [ setup ] -------------------------------------------------------------
 
-var app = express();
 app.engine("jade", jade.__express);
 app.set("view engine", "jade");
 app.set("view options", {
@@ -30,6 +33,8 @@ app.get("/", routes.home);
 
 // ---- [ run server ] --------------------------------------------------------
 
-var server = app.listen(settings.port, function() {
+server.listen(settings.port, function() {
   logger.log("ratboard started on port " + server.address().port);
 });
+
+io.on("connection", sockethandler);
