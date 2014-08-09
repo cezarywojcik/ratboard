@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  div.login-box
+    form(method="POST", action="/login")
+      input(type="text", placeholder="username")
+      input(type="text", placeholder="room")
+      input(type="password", placeholder="password")
+      input(type="submit", value="Login")

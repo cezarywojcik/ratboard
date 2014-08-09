@@ -14,7 +14,7 @@ var io = require('socket.io')(server);
 var logger = require("./logger.js");
 var routes = require("./routes");
 var settings = require("./settings.js");
-var sockethandler = require("./sockethandler.js").handler;
+var sockethandler = require("./sockethandler.js");
 
 // ---- [ setup ] -------------------------------------------------------------
 
@@ -26,10 +26,13 @@ app.set("view options", {
 app.set("views", __dirname + "/views");
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser());
+sockethandler.io = io;
 
 // ---- [ routing ] -----------------------------------------------------------
 
-app.get("/", routes.home);
+app.get("/", routes.login);
+app.get("/login", routes.login);
+app.post("/login", routes.loginPost);
 
 // ---- [ run server ] --------------------------------------------------------
 
@@ -37,4 +40,4 @@ server.listen(settings.port, function() {
   logger.log("ratboard started on port " + server.address().port);
 });
 
-io.on("connection", sockethandler);
+io.on("connection", sockethandler.handler);
