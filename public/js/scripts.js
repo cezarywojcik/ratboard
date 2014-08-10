@@ -17,9 +17,18 @@ function decrypt(string) {
     .toString(CryptoJS.enc.Utf8);
 }
 
+function scrollToBottom() {
+  if (window.innerHeight + document.body.scrollTop >=
+    document.body.offsetHeight) {
+    setTimeout(function() {
+      window.scrollTo(0, document.body.scrollHeight);
+    }, 1);
+  }
+}
+
 document.onclick = function() {
   document.getElementById("input").focus();
-}
+};
 
 // ---- [ services ] ----------------------------------------------------------
 
@@ -77,10 +86,12 @@ app.controller("RatBoardController", ["$scope", "socket",
   // scope functions
   $scope.sendMessage = function($event) {
     $event.preventDefault();
+    var d = new Date();
     socket.emit("room:message", {
       room: $scope.room,
       content: encrypt($scope.input),
-      username: encrypt($scope.username)
+      username: encrypt($scope.username),
+      timestamp: encrypt(d.toString())
     });
     $scope.input = "";
   };
@@ -88,20 +99,26 @@ app.controller("RatBoardController", ["$scope", "socket",
   // socket handling
   socket.on("room:message", function(data) {
     try {
-      data.username = decrypt(data.username);
+      data.username = decrypt(data.username) + ":";
       data.content = decrypt(data.content);
+      data.timestamp = decrypt(data.timestamp);
+      var d = new Date(data.timestamp);
+      data.timestamp = d.toLocaleString();
     } catch (err) {
       return;
     }
-    $scope.messages.push(data);
-
-    // scroll to bottom if at bottom
-    if (window.innerHeight + document.body.scrollTop >=
-      document.body.offsetHeight) {
-      setTimeout(function() {
-        window.scrollTo(0, document.body.scrollHeight);
-      }, 1);
+    if (data.timestamp !== "Invalid Date" && data.username.length > 1) {
+      $scope.messages.push(data);
     }
+
+    scrollToBottom();
+  });
+
+  socket.on("room:systemmessage", function(data) {
+    $scope.messages.push(data);
+    var d = new Date(data.timestamp);
+    data.timestamp = d.toLocaleString();
+    scrollToBottom();
   });
 
   // initialize

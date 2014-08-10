@@ -7,8 +7,9 @@ block content
   div.ratboard(ng-app="RatBoard", ng-controller="RatBoardController")
     div.message-box#message-box
         div.message(ng-repeat="message in messages")
-          span.username {{ message.username }}:
-          span.message {{ message.content }}
+          span.username(ng-show="message.username.length > 0") {{ message.username }}
+          span.content {{ message.content }}
+          span.timestamp {{ message.timestamp }}
     div.input-box
       form(ng-submit="sendMessage($event)")
         input#input(type="text", ng-model="input")

@@ -6,7 +6,19 @@
 
 exports.handler = function(socket) {
   socket.on("room:join", function(data) {
-    socket.join(data.room);
+    var d = new Date();
+    if (!data.username || data.username.length === 0) {
+      socket.emit("room:systemmessage", {
+        content: "You have no username.",
+        timestamp: d.toString()
+      });
+    } else {
+      socket.join(data.room);
+      exports.io.to(data.room).emit("room:systemmessage", {
+        content: data.username + " has connected.",
+        timestamp: d.toString()
+      });
+    }
   });
 
   socket.on("room:message", function(data) {
