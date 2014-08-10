@@ -5,9 +5,7 @@
  */
 
 exports.handler = function(socket) {
-  socket.on("connected", function(data) {
-    console.log("connected");
-  });
+  socket.emit("test", {swag : "yolo"});
 
   socket.on('disconnect', function () {
     console.log("disconnected");

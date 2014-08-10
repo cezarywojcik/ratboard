@@ -30,9 +30,10 @@ sockethandler.io = io;
 
 // ---- [ routing ] -----------------------------------------------------------
 
-app.get("/", routes.login);
-app.get("/login", routes.login);
-app.post("/login", routes.loginPost);
+app.get("/", routes.login.get);
+app.get("/login", routes.login.get);
+app.post("/login", routes.login.post);
+app.get("/room/:room", routes.room);
 
 // ---- [ run server ] --------------------------------------------------------
 

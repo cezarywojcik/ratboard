@@ -1,0 +1,10 @@
+extends layout
+
+block head
+  include partials/roomhead
+
+block content
+  div.ratboard(ng-app="RatBoard", ng-controller="RatBoardController")
+    div.message-box
+    div.input-box
+      input(type="text")

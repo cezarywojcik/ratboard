@@ -11,6 +11,8 @@
     "markdown" : "0.5.0",
     "highlight.js" : "8.1",
     "cookies" : "0.5.0",
-    "keygrip" : "1.0.1"
+    "keygrip" : "1.0.1",
+    "MD5" : "1.2.1",
+    "validator" : "3.17.0"
   }
 }

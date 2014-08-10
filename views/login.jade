@@ -2,8 +2,11 @@ extends layout
 
 block content
   div.login-box
+    if errors
+      for error in errors
+        p.error #{error}
     form(method="POST", action="/login")
-      input(type="text", placeholder="username")
-      input(type="text", placeholder="room")
-      input(type="password", placeholder="password")
+      input(type="text", placeholder="username", name="username", value=username)
+      input(type="text", placeholder="room", name="room", value=room)
+      input(type="password", placeholder="password", name="password")
       input(type="submit", value="Login")
