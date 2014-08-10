@@ -1,0 +1,35 @@
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+body {
+  background-color: $backgroundColor;
+  color: $textColor;
+  font-family: $fontFamily;
+  margin: 0;
+  padding: 0;
+}
+
+input {
+  background-color: $backgroundColor;
+  border: none;
+  color: $textColor;
+  font-family: $fontFamily;
+  padding: 5px;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+
+  &[type=submit] {
+    border: 1px solid $textColor;
+
+    &:hover {
+      background-color: rgba($textColor, 0.10);
+      font-weight: bold;
+    }
+  }
+}

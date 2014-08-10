@@ -1,0 +1,35 @@
+.ratboard {
+  .message-box {
+    margin-bottom: 26px;
+
+    .message {
+      font-size: 12px;
+
+      .username {
+        font-weight: bold;
+        margin: {
+          right: 5px;
+        }
+      }
+
+      .message {
+
+      }
+    }
+  }
+
+  input {
+    border-top: 1px solid $textColor;
+    bottom: 0;
+    display: block;
+    height: 25px;
+    margin: 0;
+    padding: {
+      bottom: 0;
+      left: 5px;
+      right: 5px;
+      top: 0;
+    };
+    position: fixed;
+  }
+}

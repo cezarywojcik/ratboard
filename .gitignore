@@ -17,6 +17,9 @@ $RECYCLE.BIN/
 # Node
 node_modules
 
+# SASS
+.sass-cache
+
 # =========================
 # Operating System Files
 # =========================

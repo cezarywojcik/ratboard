@@ -1,12 +1,13 @@
 extends layout
 
 block content
-  div.login-box
-    if errors
-      for error in errors
-        p.error #{error}
-    form(method="POST", action="/login")
-      input(type="text", placeholder="username", name="username", value=username)
-      input(type="text", placeholder="room", name="room", value=room)
-      input(type="password", placeholder="password", name="password")
-      input(type="submit", value="Login")
+  div.login-wrapper
+    div.login-box
+      if errors
+        for error in errors
+          p.error #{error}
+      form(method="POST", action="/login")
+        input(type="text", placeholder="username", name="username", value=username, autocomplete="off")
+        input(type="text", placeholder="room", name="room", value=room, autocomplete="off")
+        input(type="password", placeholder="password", name="password", autocomplete="off")
+        input(type="submit", value="Login")

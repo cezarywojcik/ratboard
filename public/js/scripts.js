@@ -17,6 +17,10 @@ function decrypt(string) {
     .toString(CryptoJS.enc.Utf8);
 }
 
+document.onclick = function() {
+  document.getElementById("input").focus();
+}
+
 // ---- [ services ] ----------------------------------------------------------
 
 app.factory("socket", function($rootScope) {
@@ -67,6 +71,7 @@ app.controller("RatBoardController", ["$scope", "socket",
       room: $scope.room,
       username: $scope.username
     });
+    document.getElementById("input").focus();
   }
 
   // scope functions
@@ -89,6 +94,14 @@ app.controller("RatBoardController", ["$scope", "socket",
       return;
     }
     $scope.messages.push(data);
+
+    // scroll to bottom if at bottom
+    if (window.innerHeight + document.body.scrollTop >=
+      document.body.offsetHeight) {
+      setTimeout(function() {
+        window.scrollTo(0, document.body.scrollHeight);
+      }, 1);
+    }
   });
 
   // initialize
