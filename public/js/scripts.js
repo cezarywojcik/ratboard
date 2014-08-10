@@ -76,6 +76,9 @@ app.controller("RatBoardController", ["$scope", "socket",
 
   // internal functions
   function init() {
+    if (getCookie("username") === null) {
+      window.location = "/login";
+    }
     socket.emit("room:join", {
       room: $scope.room,
       username: $scope.username
