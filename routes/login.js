@@ -41,7 +41,9 @@ exports.login.post = function(req, res) {
     var cookies = require("cookies")(req, res);
     var md5 = require("MD5");
 
-    cookies.set("username", req.param("username"));
+    cookies.set("username", req.param("username"), {
+      httpOnly: false
+    });
 
     res.redirect("/room/" + req.param("room") + "#" +
       md5(req.param("password")));

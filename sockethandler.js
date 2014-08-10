@@ -5,7 +5,13 @@
  */
 
 exports.handler = function(socket) {
-  socket.emit("test", {swag : "yolo"});
+  socket.on("room:join", function(data) {
+    socket.join(data.room);
+  });
+
+  socket.on("room:message", function(data) {
+    exports.io.to(data.room).emit("room:message", data);
+  });
 
   socket.on('disconnect', function () {
     console.log("disconnected");

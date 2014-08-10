@@ -6,5 +6,9 @@ block head
 block content
   div.ratboard(ng-app="RatBoard", ng-controller="RatBoardController")
     div.message-box
+        div.message(ng-repeat="message in messages")
+          span.username {{ message.username }}
+          span.message {{ message.content }}
     div.input-box
-      input(type="text")
+      form(ng-submit="sendMessage($event)")
+        input(type="text", ng-model="input")
