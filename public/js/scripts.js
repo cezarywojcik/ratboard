@@ -8,6 +8,15 @@ function getCookie(name) {
   return (value !== null) ? unescape(value[1]) : null;
 }
 
+function encrypt(string) {
+  return CryptoJS.AES.encrypt(string, window.location.hash).toString();
+}
+
+function decrypt(string) {
+  return CryptoJS.AES.decrypt(string, window.location.hash)
+    .toString(CryptoJS.enc.Utf8);
+}
+
 // ---- [ services ] ----------------------------------------------------------
 
 app.factory("socket", function($rootScope) {
@@ -65,15 +74,16 @@ app.controller("RatBoardController", ["$scope", "socket",
     $event.preventDefault();
     socket.emit("room:message", {
       room: $scope.room,
-      content: $scope.input,
-      username: $scope.username
+      content: encrypt($scope.input),
+      username: encrypt($scope.username)
     });
     $scope.input = "";
   };
 
   // socket handling
   socket.on("room:message", function(data) {
-    console.log("message!");
+    data.username = decrypt(data.username);
+    data.content = decrypt(data.content);
     $scope.messages.push(data);
   });
 

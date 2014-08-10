@@ -13,7 +13,7 @@ exports.handler = function(socket) {
     exports.io.to(data.room).emit("room:message", data);
   });
 
-  socket.on('disconnect', function () {
-    console.log("disconnected");
+  socket.on('disconnect', function() {
+    // do things
   });
 };
