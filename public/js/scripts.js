@@ -82,8 +82,12 @@ app.controller("RatBoardController", ["$scope", "socket",
 
   // socket handling
   socket.on("room:message", function(data) {
-    data.username = decrypt(data.username);
-    data.content = decrypt(data.content);
+    try {
+      data.username = decrypt(data.username);
+      data.content = decrypt(data.content);
+    } catch (err) {
+      return;
+    }
     $scope.messages.push(data);
   });
 
